@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Binmolhy Group</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="admin">
+  <header>
+    <div class="container navbar">
+      <a class="brand" href="index.html">
+        <img src="https://github.com/user-attachments/assets/f374ef84-e24b-445d-a8ca-63d6f6286707" alt="Binmolhy Group logo">
+        <div>
+          <strong>BINMOLHY</strong><br>
+          <span style="font-size:12px; color:var(--brand-gray);">Group Sdn. Bhd.</span>
+        </div>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a class="active" href="admin.html">Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <main data-admin-section>
+    <section class="page-hero admin-hero">
+      <div class="container admin-hero-grid">
+        <div class="admin-hero-content">
+          <span class="badge">Admin access</span>
+          <h1>Catalog dashboard</h1>
+          <p>Manage products, highlights, and marketplace links with confidence.</p>
+          <div class="admin-actions-bar">
+            <button class="btn btn-primary" type="button" data-scroll-form>New product</button>
+            <button class="btn btn-outline" type="button" data-logout>Log out</button>
+          </div>
+          <p class="notice" data-last-updated>Last updated: --</p>
+        </div>
+        <div class="admin-kpi-grid">
+          <div class="admin-kpi-card">
+            <small>Total products</small>
+            <h3 data-kpi-total>0</h3>
+            <span>Catalog items</span>
+          </div>
+          <div class="admin-kpi-card">
+            <small>Featured</small>
+            <h3 data-kpi-featured>0</h3>
+            <span>Homepage highlights</span>
+          </div>
+          <div class="admin-kpi-card">
+            <small>New arrivals</small>
+            <h3 data-kpi-new>0</h3>
+            <span>Fresh launches</span>
+          </div>
+          <div class="admin-kpi-card">
+            <small>Best sellers</small>
+            <h3 data-kpi-best>0</h3>
+            <span>Top performers</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0;">
+      <div class="container">
+        <div class="admin-shell">
+          <div class="admin-card" data-form-anchor>
+            <div class="admin-card-header">
+              <div>
+                <h3>Product editor</h3>
+                <p>Update descriptions, imagery, and highlight badges.</p>
+              </div>
+              <span class="badge">Saved locally</span>
+            </div>
+            <form data-product-form>
+              <input type="text" name="name" placeholder="Product name" required>
+              <input type="text" name="shortDescription" placeholder="Short description" required>
+              <textarea name="description" rows="4" placeholder="Full description" required></textarea>
+              <input type="text" name="ingredients" placeholder="Ingredients (comma separated)">
+              <input type="number" name="price" step="0.01" placeholder="Price (RM)" required>
+              <select name="category" required>
+                <option value="Snacks">Snacks</option>
+                <option value="Tea">Tea</option>
+                <option value="Food">Food</option>
+              </select>
+              <input type="url" name="buyLink" placeholder="External buy link" required>
+              <label class="admin-upload">
+                Upload product image
+                <input type="file" accept="image/*" data-image-input>
+              </label>
+              <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=800&q=80" alt="Preview" data-image-preview style="width:100%; border-radius:14px;">
+              <div class="admin-checkboxes">
+                <label><input type="checkbox" name="featured"> Featured highlight</label>
+                <label><input type="checkbox" name="isNew"> New arrival</label>
+                <label><input type="checkbox" name="isBestSeller"> Best seller</label>
+              </div>
+              <button class="btn btn-primary" type="submit"><span data-submit-label>Add Product</span></button>
+              <button class="btn btn-outline" type="button" data-reset-form>Reset</button>
+            </form>
+            <p class="notice">Products are stored locally in this browser for easy catalog updates.</p>
+          </div>
+
+          <div>
+            <div class="admin-card">
+              <div class="admin-card-header">
+                <div>
+                  <h3>Current catalog</h3>
+                  <p>Search, filter, and manage your live catalog.</p>
+                </div>
+                <span class="badge">Live view</span>
+              </div>
+              <div class="admin-toolbar">
+                <input type="text" placeholder="Search by product name" data-admin-search>
+                <select data-admin-filter>
+                  <option value="All">All categories</option>
+                  <option value="Featured">Featured</option>
+                  <option value="New Arrivals">New arrivals</option>
+                  <option value="Best Sellers">Best sellers</option>
+                  <option value="Snacks">Snacks</option>
+                  <option value="Tea">Tea</option>
+                  <option value="Food">Food</option>
+                </select>
+                <select data-admin-sort>
+                  <option value="Name">Sort: Name (A–Z)</option>
+                  <option value="PriceLow">Sort: Price (Low to High)</option>
+                  <option value="PriceHigh">Sort: Price (High to Low)</option>
+                </select>
+              </div>
+              <div class="admin-products" data-admin-products></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <h3>Binmolhy Group</h3>
+        <p>Premium snacks, tea, and ready meals crafted with heritage flavors and modern convenience.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="products.html">Products</a><br>
+        <a href="about.html">About Us</a><br>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div>
+        <h4>Social</h4>
+        <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a><br>
+        <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a><br>
+        <a href="https://tiktok.com" target="_blank" rel="noopener">TikTok</a>
+      </div>
+      <div>
+        <h4>Marketplace</h4>
+        <a href="https://shopee.com" target="_blank" rel="noopener">Shopee</a><br>
+        <a href="https://lazada.com" target="_blank" rel="noopener">Lazada</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
