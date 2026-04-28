@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login | Binmolhy Group</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="login">
+  <header>
+    <div class="container navbar">
+      <a class="brand" href="index.html">
+        <img src="https://github.com/user-attachments/assets/f374ef84-e24b-445d-a8ca-63d6f6286707" alt="Binmolhy Group logo">
+        <div>
+          <strong>BINMOLHY</strong><br>
+          <span style="font-size:12px; color:var(--brand-gray);">Group Sdn. Bhd.</span>
+        </div>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a class="active" href="login.html">Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container" style="max-width:520px;">
+      <div class="admin-card">
+        <h2>Admin login</h2>
+        <p>Access the private catalog manager.</p>
+        <form data-login-form>
+          <input type="text" name="username" placeholder="Username" required>
+          <input type="password" name="password" placeholder="Password" required>
+          <button class="btn btn-primary" type="submit">Sign in</button>
+        </form>
+        <p data-login-feedback style="color:var(--brand-orange);"></p>
+        <p class="notice">Demo credentials: <strong>admin</strong> / <strong>Binmolhy2024!</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <h3>Binmolhy Group</h3>
+        <p>Premium snacks, tea, and ready meals crafted with heritage flavors and modern convenience.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="products.html">Products</a><br>
+        <a href="about.html">About Us</a><br>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div>
+        <h4>Social</h4>
+        <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a><br>
+        <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a><br>
+        <a href="https://tiktok.com" target="_blank" rel="noopener">TikTok</a>
+      </div>
+      <div>
+        <h4>Marketplace</h4>
+        <a href="https://shopee.com" target="_blank" rel="noopener">Shopee</a><br>
+        <a href="https://lazada.com" target="_blank" rel="noopener">Lazada</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
