@@ -1,5 +1,6 @@
 const BRAND_CONFIG = {
   storageKey: 'binmolhy_products_v1',
+  productsUpdatedKey: 'binmolhy_products_updated',
   adminSessionKey: 'binmolhy_admin_session',
   adminUser: 'admin',
   adminHash: 'ce68ab2ed21f2988b73c3a4d973265189f0fcb93984351a7ce77060f22f7ae4b',
@@ -163,6 +164,17 @@ const CATEGORY_OPTIONS = [
 ];
 
 const formatPrice = (value) => `RM ${Number(value).toFixed(2)}`;
+const formatDateTime = (value) => {
+  if (!value) return 'Not yet updated';
+  try {
+    return new Date(value).toLocaleString('en-MY', {
+      dateStyle: 'medium',
+      timeStyle: 'short',
+    });
+  } catch (error) {
+    return new Date(value).toLocaleString();
+  }
+};
 
 const getStoredProducts = () => {
   try {
@@ -175,6 +187,12 @@ const getStoredProducts = () => {
 
 const saveProducts = (products) => {
   localStorage.setItem(BRAND_CONFIG.storageKey, JSON.stringify(products));
+  localStorage.setItem(BRAND_CONFIG.productsUpdatedKey, Date.now().toString());
+};
+
+const getProductsUpdated = () => {
+  const timestamp = localStorage.getItem(BRAND_CONFIG.productsUpdatedKey);
+  return timestamp ? Number(timestamp) : null;
 };
 
 const ensureProductsSeeded = () => {
@@ -369,13 +387,27 @@ const initAdmin = () => {
 
   ensureProductsSeeded();
 
+  const kpiTotal = document.querySelector('[data-kpi-total]');
+  const kpiFeatured = document.querySelector('[data-kpi-featured]');
+  const kpiNew = document.querySelector('[data-kpi-new]');
+  const kpiBest = document.querySelector('[data-kpi-best]');
+  const lastUpdatedLabel = document.querySelector('[data-last-updated]');
   const form = document.querySelector('[data-product-form]');
   const list = document.querySelector('[data-admin-products]');
+  const searchInput = document.querySelector('[data-admin-search]');
+  const filterSelect = document.querySelector('[data-admin-filter]');
+  const sortSelect = document.querySelector('[data-admin-sort]');
   const imageInput = document.querySelector('[data-image-input]');
   const imagePreview = document.querySelector('[data-image-preview]');
   const resetButton = document.querySelector('[data-reset-form]');
+  const scrollButton = document.querySelector('[data-scroll-form]');
+  const logoutButton = document.querySelector('[data-logout]');
+  const formAnchor = document.querySelector('[data-form-anchor]');
   let editingId = null;
   let uploadedImage = null;
+  let activeFilter = 'All';
+  let activeSort = 'Name';
+  let searchQuery = '';
 
   const resetForm = () => {
     form.reset();
@@ -385,18 +417,68 @@ const initAdmin = () => {
     form.querySelector('[data-submit-label]').textContent = 'Add Product';
   };
 
-  const renderAdminProducts = () => {
+  const updateStats = () => {
     const products = getProducts();
-    list.innerHTML = products
-      .map(
-        (product) => `
+    if (kpiTotal) kpiTotal.textContent = products.length;
+    if (kpiFeatured) kpiFeatured.textContent = products.filter((item) => item.featured).length;
+    if (kpiNew) kpiNew.textContent = products.filter((item) => item.isNew).length;
+    if (kpiBest) kpiBest.textContent = products.filter((item) => item.isBestSeller).length;
+    if (lastUpdatedLabel) {
+      const updatedAt = getProductsUpdated();
+      lastUpdatedLabel.textContent = `Last updated: ${formatDateTime(updatedAt)}`;
+    }
+  };
+
+  const matchesAdminFilter = (product) => {
+    if (activeFilter === 'All') return true;
+    if (activeFilter === 'Featured') return product.featured;
+    if (activeFilter === 'New Arrivals') return product.isNew;
+    if (activeFilter === 'Best Sellers') return product.isBestSeller;
+    return product.category === activeFilter;
+  };
+
+  const sortAdminProducts = (products) => {
+    const sorted = [...products];
+    if (activeSort === 'PriceLow') {
+      return sorted.sort((a, b) => a.price - b.price);
+    }
+    if (activeSort === 'PriceHigh') {
+      return sorted.sort((a, b) => b.price - a.price);
+    }
+    return sorted.sort((a, b) => a.name.localeCompare(b.name));
+  };
+
+  const renderAdminProducts = () => {
+    const products = sortAdminProducts(
+      getProducts().filter((product) => {
+        const matchesSearch = product.name.toLowerCase().includes(searchQuery);
+        return matchesSearch && matchesAdminFilter(product);
+      })
+    );
+
+    list.innerHTML =
+      products
+        .map((product) => {
+          const tags = [];
+          if (product.featured) tags.push('Featured');
+          if (product.isNew) tags.push('New');
+          if (product.isBestSeller) tags.push('Best seller');
+          const tagMarkup = tags.length
+            ? tags.map((tag) => `<span class="admin-tag">${tag}</span>`).join('')
+            : '<span class="admin-tag secondary">Standard</span>';
+
+          return `
       <div class="admin-product">
         <img src="${product.image}" alt="${product.name}">
-        <div>
-          <strong>${product.name}</strong>
-          <div class="product-meta">
-            <span>${product.category}</span>
+        <div class="admin-product-info">
+          <div class="admin-product-header">
+            <h4>${product.name}</h4>
+            <span class="admin-tag secondary">${product.category}</span>
+          </div>
+          <p>${product.shortDescription}</p>
+          <div class="admin-product-meta">
             <span>${formatPrice(product.price)}</span>
+            <div class="admin-tags">${tagMarkup}</div>
           </div>
           <div class="admin-actions">
             <button class="btn btn-outline" data-edit="${product.id}">Edit</button>
@@ -404,9 +486,11 @@ const initAdmin = () => {
           </div>
         </div>
       </div>
-    `
-      )
-      .join('');
+    `;
+        })
+        .join('') || '<p class="notice">No products match your current filters.</p>';
+
+    updateStats();
   };
 
   const handleEdit = (id) => {
@@ -484,6 +568,30 @@ const initAdmin = () => {
     const deleteId = event.target.getAttribute('data-delete');
     if (editId) handleEdit(editId);
     if (deleteId) handleDelete(deleteId);
+  });
+
+  searchInput?.addEventListener('input', () => {
+    searchQuery = searchInput.value.trim().toLowerCase();
+    renderAdminProducts();
+  });
+
+  filterSelect?.addEventListener('change', () => {
+    activeFilter = filterSelect.value;
+    renderAdminProducts();
+  });
+
+  sortSelect?.addEventListener('change', () => {
+    activeSort = sortSelect.value;
+    renderAdminProducts();
+  });
+
+  scrollButton?.addEventListener('click', () => {
+    formAnchor?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  logoutButton?.addEventListener('click', () => {
+    localStorage.removeItem(BRAND_CONFIG.adminSessionKey);
+    window.location.href = 'login.html';
   });
 
   resetButton.addEventListener('click', resetForm);

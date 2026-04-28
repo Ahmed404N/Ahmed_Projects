@@ -30,52 +30,116 @@
     </div>
   </header>
 
-  <section class="section" data-admin-section>
-    <div class="container">
-      <div class="section-title">
-        <div>
-          <h2>Catalog dashboard</h2>
-          <p>Manage featured, new arrivals, and best sellers in one place.</p>
+  <main data-admin-section>
+    <section class="page-hero admin-hero">
+      <div class="container admin-hero-grid">
+        <div class="admin-hero-content">
+          <span class="badge">Admin access</span>
+          <h1>Catalog dashboard</h1>
+          <p>Manage products, highlights, and marketplace links with confidence.</p>
+          <div class="admin-actions-bar">
+            <button class="btn btn-primary" type="button" data-scroll-form>New product</button>
+            <button class="btn btn-outline" type="button" data-logout>Log out</button>
+          </div>
+          <p class="notice" data-last-updated>Last updated: --</p>
         </div>
-      </div>
-      <div class="admin-shell">
-        <div class="admin-card">
-          <h3>Product editor</h3>
-          <form data-product-form>
-            <input type="text" name="name" placeholder="Product name" required>
-            <input type="text" name="shortDescription" placeholder="Short description" required>
-            <textarea name="description" rows="4" placeholder="Full description" required></textarea>
-            <input type="text" name="ingredients" placeholder="Ingredients (comma separated)">
-            <input type="number" name="price" step="0.01" placeholder="Price (RM)" required>
-            <select name="category" required>
-              <option value="Snacks">Snacks</option>
-              <option value="Tea">Tea</option>
-              <option value="Food">Food</option>
-            </select>
-            <input type="url" name="buyLink" placeholder="External buy link" required>
-            <label>
-              Upload product image
-              <input type="file" accept="image/*" data-image-input>
-            </label>
-            <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=800&q=80" alt="Preview" data-image-preview style="width:100%; border-radius:14px;">
-            <label><input type="checkbox" name="featured"> Mark as featured</label>
-            <label><input type="checkbox" name="isNew"> Mark as new arrival</label>
-            <label><input type="checkbox" name="isBestSeller"> Mark as best seller</label>
-            <button class="btn btn-primary" type="submit"><span data-submit-label>Add Product</span></button>
-            <button class="btn btn-outline" type="button" data-reset-form>Reset</button>
-          </form>
-          <p class="notice">Products are stored locally in this browser for easy catalog updates.</p>
-        </div>
-
-        <div>
-          <div class="admin-card">
-            <h3>Current catalog</h3>
-            <div class="admin-products" data-admin-products></div>
+        <div class="admin-kpi-grid">
+          <div class="admin-kpi-card">
+            <small>Total products</small>
+            <h3 data-kpi-total>0</h3>
+            <span>Catalog items</span>
+          </div>
+          <div class="admin-kpi-card">
+            <small>Featured</small>
+            <h3 data-kpi-featured>0</h3>
+            <span>Homepage highlights</span>
+          </div>
+          <div class="admin-kpi-card">
+            <small>New arrivals</small>
+            <h3 data-kpi-new>0</h3>
+            <span>Fresh launches</span>
+          </div>
+          <div class="admin-kpi-card">
+            <small>Best sellers</small>
+            <h3 data-kpi-best>0</h3>
+            <span>Top performers</span>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <section class="section" style="padding-top:0;">
+      <div class="container">
+        <div class="admin-shell">
+          <div class="admin-card" data-form-anchor>
+            <div class="admin-card-header">
+              <div>
+                <h3>Product editor</h3>
+                <p>Update descriptions, imagery, and highlight badges.</p>
+              </div>
+              <span class="badge">Saved locally</span>
+            </div>
+            <form data-product-form>
+              <input type="text" name="name" placeholder="Product name" required>
+              <input type="text" name="shortDescription" placeholder="Short description" required>
+              <textarea name="description" rows="4" placeholder="Full description" required></textarea>
+              <input type="text" name="ingredients" placeholder="Ingredients (comma separated)">
+              <input type="number" name="price" step="0.01" placeholder="Price (RM)" required>
+              <select name="category" required>
+                <option value="Snacks">Snacks</option>
+                <option value="Tea">Tea</option>
+                <option value="Food">Food</option>
+              </select>
+              <input type="url" name="buyLink" placeholder="External buy link" required>
+              <label class="admin-upload">
+                Upload product image
+                <input type="file" accept="image/*" data-image-input>
+              </label>
+              <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=800&q=80" alt="Preview" data-image-preview style="width:100%; border-radius:14px;">
+              <div class="admin-checkboxes">
+                <label><input type="checkbox" name="featured"> Featured highlight</label>
+                <label><input type="checkbox" name="isNew"> New arrival</label>
+                <label><input type="checkbox" name="isBestSeller"> Best seller</label>
+              </div>
+              <button class="btn btn-primary" type="submit"><span data-submit-label>Add Product</span></button>
+              <button class="btn btn-outline" type="button" data-reset-form>Reset</button>
+            </form>
+            <p class="notice">Products are stored locally in this browser for easy catalog updates.</p>
+          </div>
+
+          <div>
+            <div class="admin-card">
+              <div class="admin-card-header">
+                <div>
+                  <h3>Current catalog</h3>
+                  <p>Search, filter, and manage your live catalog.</p>
+                </div>
+                <span class="badge">Live view</span>
+              </div>
+              <div class="admin-toolbar">
+                <input type="text" placeholder="Search by product name" data-admin-search>
+                <select data-admin-filter>
+                  <option value="All">All categories</option>
+                  <option value="Featured">Featured</option>
+                  <option value="New Arrivals">New arrivals</option>
+                  <option value="Best Sellers">Best sellers</option>
+                  <option value="Snacks">Snacks</option>
+                  <option value="Tea">Tea</option>
+                  <option value="Food">Food</option>
+                </select>
+                <select data-admin-sort>
+                  <option value="Name">Sort: Name (A–Z)</option>
+                  <option value="PriceLow">Sort: Price (Low to High)</option>
+                  <option value="PriceHigh">Sort: Price (High to Low)</option>
+                </select>
+              </div>
+              <div class="admin-products" data-admin-products></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <footer>
     <div class="container footer-grid">
