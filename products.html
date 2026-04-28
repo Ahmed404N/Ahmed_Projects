@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Catalog | Amber & Leaf</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container navbar">
+        <a class="brand" href="index.html">Amber & Leaf</a>
+        <nav class="nav-links">
+          <a href="index.html">Home</a>
+          <a class="active" href="products.html">Products</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="admin.html">Admin</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Explore our catalog</h2>
+          <p>
+            Browse every snack, tea, and comfort food item. Use the filters to find new
+            arrivals, best sellers, or your favorite category.
+          </p>
+        </div>
+
+        <div class="filters">
+          <div class="search-field">
+            <input
+              type="search"
+              id="product-search"
+              placeholder="Search by product name"
+              aria-label="Search products"
+            />
+          </div>
+          <div class="category-filters" id="category-filters"></div>
+        </div>
+
+        <div class="grid cards" id="product-grid"></div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container footer-grid">
+        <div>
+          <h3>Amber & Leaf</h3>
+          <p>Premium snacks, tea, and comfort foods for every pause.</p>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <p><a href="products.html">Product catalog</a></p>
+          <p><a href="about.html">About us</a></p>
+          <p><a href="contact.html">Contact</a></p>
+        </div>
+        <div>
+          <h4>Follow</h4>
+          <p><a href="https://instagram.com" target="_blank" rel="noreferrer">Instagram</a></p>
+          <p><a href="https://facebook.com" target="_blank" rel="noreferrer">Facebook</a></p>
+          <p><a href="https://tiktok.com" target="_blank" rel="noreferrer">TikTok</a></p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/storage.js"></script>
+    <script src="assets/js/catalog.js"></script>
+    <script src="assets/js/products.js"></script>
+  </body>
+</html>

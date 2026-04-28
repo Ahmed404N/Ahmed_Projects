@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard | Amber & Leaf</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container navbar">
+        <a class="brand" href="index.html">Amber & Leaf</a>
+        <nav class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="products.html">Products</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a class="active" href="admin.html">Admin</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="section" id="login-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Admin login</h2>
+          <p>Secure access to manage products and featured selections.</p>
+        </div>
+        <div class="panel" style="max-width: 520px">
+          <form id="login-form">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" id="username" name="username" required />
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" required />
+            </div>
+            <button class="button primary" type="submit">Log in</button>
+          </form>
+          <div class="notice" style="margin-top: 16px">
+            Demo login: <strong>admin</strong> / <strong>Amber2026!</strong>. Replace
+            credentials when connecting to a secure backend.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="dashboard-section" style="display: none">
+      <div class="container">
+        <div class="section-header">
+          <h2>Product management</h2>
+          <button class="button secondary" id="logout" type="button">Log out</button>
+        </div>
+        <div class="dashboard">
+          <div class="panel">
+            <h3>Add or edit product</h3>
+            <form id="product-form">
+              <div class="form-group">
+                <label for="name">Product name *</label>
+                <input type="text" id="name" name="name" required />
+              </div>
+              <div class="form-group">
+                <label for="shortDescription">Short description *</label>
+                <input type="text" id="shortDescription" name="shortDescription" required />
+              </div>
+              <div class="form-group">
+                <label for="description">Full description *</label>
+                <textarea id="description" name="description" required></textarea>
+              </div>
+              <div class="form-group">
+                <label for="ingredients">Ingredients/details (comma separated)</label>
+                <input type="text" id="ingredients" name="ingredients" />
+              </div>
+              <div class="form-group">
+                <label for="price">Price (USD) *</label>
+                <input type="number" id="price" name="price" step="0.01" required />
+              </div>
+              <div class="form-group">
+                <label for="category">Category *</label>
+                <select id="category" name="category" required>
+                  <option value="Snacks">Snacks</option>
+                  <option value="Tea">Tea</option>
+                  <option value="Food">Food</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="buyLink">External purchase link *</label>
+                <input type="url" id="buyLink" name="buyLink" required />
+              </div>
+              <div class="form-group">
+                <label for="imageUrl">Image URL (or upload below) *</label>
+                <input type="url" id="imageUrl" name="imageUrl" />
+              </div>
+              <div class="form-group">
+                <label for="product-image-file">Upload image</label>
+                <input type="file" id="product-image-file" accept="image/*" />
+              </div>
+              <img
+                id="image-preview"
+                alt=""
+                style="max-height: 140px; border-radius: 16px"
+              />
+              <div class="form-group">
+                <label>
+                  <input type="checkbox" id="isFeatured" name="isFeatured" /> Featured
+                </label>
+              </div>
+              <div class="form-group">
+                <label>
+                  <input type="checkbox" id="isNew" name="isNew" /> New arrival
+                </label>
+              </div>
+              <div class="form-group">
+                <label>
+                  <input type="checkbox" id="isBestSeller" name="isBestSeller" /> Best seller
+                </label>
+              </div>
+              <button class="button primary" type="submit">Save product</button>
+              <button
+                class="button secondary"
+                type="button"
+                style="margin-left: 8px"
+                id="clear-form"
+              >
+                Clear form
+              </button>
+            </form>
+            <p id="form-status" style="margin-top: 12px"></p>
+          </div>
+          <div class="panel">
+            <h3>Catalog products</h3>
+            <div class="notice" style="margin-bottom: 16px">
+              Changes are stored locally in your browser. Connect to a backend for
+              multi-user access and stronger security.
+            </div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Category</th>
+                  <th>Price</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="product-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container footer-grid">
+        <div>
+          <h3>Amber & Leaf</h3>
+          <p>Premium snacks, tea, and comfort foods for every pause.</p>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <p><a href="products.html">Product catalog</a></p>
+          <p><a href="about.html">About us</a></p>
+          <p><a href="contact.html">Contact</a></p>
+        </div>
+        <div>
+          <h4>Follow</h4>
+          <p><a href="https://instagram.com" target="_blank" rel="noreferrer">Instagram</a></p>
+          <p><a href="https://facebook.com" target="_blank" rel="noreferrer">Facebook</a></p>
+          <p><a href="https://tiktok.com" target="_blank" rel="noreferrer">TikTok</a></p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/storage.js"></script>
+    <script src="assets/js/catalog.js"></script>
+    <script src="assets/js/admin.js"></script>
+  </body>
+</html>

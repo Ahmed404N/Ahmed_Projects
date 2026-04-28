@@ -1,0 +1,12 @@
+{
+  "name": "ahmed_projects",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"No tests specified\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
